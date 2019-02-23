@@ -1,13 +1,10 @@
-import cv2  # Importamos libreria OpenCV 3.4
+import cv2 
 import numpy as np
 from picamera import PiCamera
 from picamera.array import PiRGBArray
 
-
-
-
 class ImageProcessing():
-    def __init__(self,robot, height_resolution, width_resolution):
+    def __init__(self,robot):
         self.direction = 0
         self.searching = 0
         self.movement = 0
@@ -15,10 +12,10 @@ class ImageProcessing():
         self.kernel_closure = np.ones((20, 20))
         self.upper_bound = np.array([102, 255, 255])
         self.lower_bound = np.array([33, 80, 40])
-        self.height = height_resolution
-        self.width = width_resolution
+        self.height = 640
+        self.width = 480
         self.camera = PiCamera()
-        self.camera.resolution = (width_resolution, height_resolution)
+        self.camera.resolution = (640,480)
         self.camera.framerate = 32
         self.raw_capture = PiRGBArray(self.camera,size= (self.width,self.width))
         self.robot = robot
