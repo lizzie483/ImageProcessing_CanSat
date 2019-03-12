@@ -4,25 +4,27 @@ from picamera import PiCamera
 from picamera.array import PiRGBArray
 
 class ImageProcessing():
-    def __init__(self,robot):
+    #def __init__(self,robot):
+    def __init__(self):
         self.direction = 0
         self.searching = 0
         self.movement = 0
-        self.kernel_open = np.np.ones((5, 5))
+        #self.robot = robot
+        self.kernel_open = np.ones((5, 5))
         self.kernel_closure = np.ones((20, 20))
         self.upper_bound = np.array([102, 255, 255])
         self.lower_bound = np.array([33, 80, 40])
-        self.height = 640
-        self.width = 480
+        self.height = 480
+        self.width = 640
         self.camera = PiCamera()
         self.camera.resolution = (640,480)
         self.camera.framerate = 32
-        self.raw_capture = PiRGBArray(self.camera,size= (self.width,self.width))
-        self.robot = robot
+        self.raw_capture = PiRGBArray(self.camera,size= (self.width,self.height))
+       
 
     def execute(self):
 
-        for self.frame in self.camera.capture_continuous(self.rawCapture, format="bgr", use_video_port=True):
+        for self.frame in self.camera.capture_continuous(self.raw_capture, format="bgr", use_video_port=True):
             self.image = self.frame.array
             cv2.imshow("Frame", self.image)
             key = cv2.waitKey(1) & 0xFF
@@ -74,27 +76,27 @@ class ImageProcessing():
                     self.movement = 4
 
 
-            self.rawCapture.truncate(0)
+            self.raw_capture.truncate(0)
 
             if bool(self.searching):
 
                 if (self.movement == 1):
                     print("Straight")
-                    self.robot.update_speed(0.45,0.45)
+                    #self.robot.update_speed(0.45,0.45)
 
                 if (self.movement == 2):
                     print("Right")
                     speed_final = 0.35 + ((speed_rate/half_width)/100)
-                    self.robot.update_speed(speed_final,0.35)
+                    #self.robot.update_speed(speed_final,0.35)
 
                 if (self.movement == 3):
                     print("Left")
                     speed_final = 0.35 + ((speed_rate / half_width) / 100)
-                    self.robot.update_speed(0.35,speed_final)
+                    #self.robot.update_speed(0.35,speed_final)
 
                 if (self.movement == 4):
                     print("Stop")
-                    self.robot.stop()
+                    #self.robot.stop()
                     break
 
             else:
