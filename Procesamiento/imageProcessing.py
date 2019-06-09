@@ -12,8 +12,21 @@ class ImageProcessing():
         #self.robot = robot
         self.kernel_open = np.ones((5, 5))
         self.kernel_closure = np.ones((20, 20))
-        self.upper_bound = np.array([102, 255, 255])
-        self.lower_bound = np.array([33, 80, 40])
+        
+        #Comentar los dos colores que se excluyen
+        #Green
+        self.lower_bound = np.array([50, 100, 100])
+        self.upper_bound = np.array([70, 255, 255])
+        
+        #Blue
+        self.lower_bound = np.array([0,100,100])
+        self.upper_bound = np.array([20,255,255])
+        
+        #Red 
+        self.lower_bound = np.array([115,150,150])
+        self.upper_bound = np.array([130,255,255])
+                
+        
         self.height = 480
         self.width = 640
         self.camera = PiCamera()
