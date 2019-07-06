@@ -3,22 +3,7 @@ import numpy as np
 from picamera import PiCamera
 from picamera.array import PiRGBArray
 import time
-import RPi.GPIO as GPIO
 
-
-
-GPIO.setwarnings(False)
-GPIO.setmode(GPIO.BOARD)
-Salida = [32, 33]
-GPIO.setup(Salida, GPIO.OUT)
-High = [11, 15]
-GPIO.setup(High, GPIO.OUT, initial=GPIO.HIGH)
-Low = [13, 16]
-GPIO.setup(Low, GPIO.OUT, initial=GPIO.LOW)
-pwm1 = GPIO.PWM(32, 50)
-pwm2 = GPIO.PWM(33, 50)
-pwm1.start(0)
-pwm2.start(0)
 
 # Definimos limite inferior y superior de color en HSV
 cotaInf = np.array([33, 80, 40])
@@ -36,7 +21,8 @@ u = 0  # Inicializamos condicion de movimiento del rover
 # Inicializa la camara
 camera = PiCamera()
 camera.resolution = (640, 480)
-camera.framerate = 32
+camera.rotation = 90
+camera.framerate = 30
 camera.rotation = 180
 rawCapture = PiRGBArray(camera, size=(640, 480))
 
@@ -108,41 +94,21 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
 
     if bool(cond):
         if (u == 1):
-            u1 = 42
-            u2 = 42
-            GPIO.output(32, True)
-            pwm1.ChangeDutyCycle(u1)
-            GPIO.output(33, True)
-            pwm2.ChangeDutyCycle(u2)
+           
             print("Directo")
 
         if (u == 3):
-            u2 = 35
-            u1 = 35 + 7 * d1 / sp
-            GPIO.output(32, True)
-            pwm1.ChangeDutyCycle(u1)
-            GPIO.output(33, True)
-            pwm2.ChangeDutyCycle(u2)
+           
             print("Derecha")
 
         if (u == 2):
-            u1 = 35
-            u2 = 35 + 7 * d1 / sp
-            GPIO.output(32, True)
-            pwm1.ChangeDutyCycle(u1)
-            GPIO.output(33, True)
-            pwm2.ChangeDutyCycle(u2)
+           
             print("Izquierda")
         if (u == 4):
             print("Parar")
-            GPIO.output(32, True)
-            pwm1.ChangeDutyCycle(0)
-            GPIO.output(33, True)
-            pwm2.ChangeDutyCycle(0)
+
+            
             break
     else:
-        GPIO.output(32, True)
-        pwm1.ChangeDutyCycle(35)
-        GPIO.output(33, True)
-        pwm2.ChangeDutyCycle(42)
+       
         print("Buscando")
