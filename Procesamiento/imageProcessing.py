@@ -14,18 +14,9 @@ class ImageProcessing():
         self.kernel_closure = np.ones((20, 20))
         
         #Comentar los dos colores que se excluyen
-        #Green
-        self.lower_bound = np.array([50, 100, 100])
-        self.upper_bound = np.array([70, 255, 255])
-        
-        #Blue
-        self.lower_bound = np.array([0,100,100])
-        self.upper_bound = np.array([20,255,255])
-        
-        #Red 
-        self.lower_bound = np.array([115,150,150])
-        self.upper_bound = np.array([130,255,255])
-                
+        #Red
+        self.lower_bound = np.array([160, 100, 100])
+        self.upper_bound = np.array([179, 255, 255])
         
         self.height = 480
         self.width = 640
@@ -114,3 +105,5 @@ class ImageProcessing():
 
             else:
                 print("Searching")
+                self.robot.update_speed(0.25,0.35)
+                
