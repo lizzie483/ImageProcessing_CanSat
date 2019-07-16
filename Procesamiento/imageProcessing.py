@@ -86,7 +86,7 @@ class ImageProcessing():
 
                 if (self.movement == 1):
                     print("Straight")
-                    #self.robot.update_speed(0.45,0.45)
+                    #self.robot.update_speed(0.4,0.4)
 
                 if (self.movement == 2):
                     print("Right")
